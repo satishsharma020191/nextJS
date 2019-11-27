@@ -1,5 +1,11 @@
 import Layout from '../components/Layout';
-const About = ()=><p>this is about page.</p>;
+const About = () => {
+    return (
+        <Layout>
+            <p>this is about page.</p>
+        </Layout>
+    )
+};
 
-export default Layout(About);
+export default About;
 
