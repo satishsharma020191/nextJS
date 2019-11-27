@@ -2,14 +2,14 @@ import Layout from '../../components/Layout';
 //import Markdown from 'react-markdown';
 import { connect } from 'react-redux';
 import fetch from 'isomorphic-unfetch';
-import { fetchBatmanSeriesDescStart } from '../../lib/reducers/batman';
+import { fetchBatmanSeriesDescStart } from '../../lib/actions';
 
 const Post = props => {
     // console.log('post props', props);
     return (<Layout>
-        <h1>{props.show.name}</h1>
+        {/* <h1>{props.show.name}</h1>
         <p>{props.show.summary.replace(/<[/]?[pb]>/g, '')}</p>
-        <img src={props.show.image.medium} />
+        <img src={props.show.image.medium} /> */}
     </Layout>);
 }
 
@@ -30,17 +30,17 @@ Post.getInitialProps = async function ({ isServer, store, query }) {
     // // console.log('printing server state::', store.getState());
     // return {};
 
-    const { id } = query;
-    const res = await fetch(`https://api.tvmaze.com/shows/${id}`);
-    const show = await res.json();
+    // const { id } = query;
+    // const res = await fetch(`https://api.tvmaze.com/shows/${id}`);
+    // const show = await res.json();
 
-    console.log('printing context id', show.name);
-    return { show };
+    // console.log('printing context id', show.name);
+    return {};
 }
 
 
 const mapStateToProps = state => ({
-    batmanSeries: state.batmanShows.data,
+    batmanSeries: state.batmanData,
 });
 
 const mapDispatchToProps = dispatch => ({

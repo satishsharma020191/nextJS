@@ -1,5 +1,5 @@
-import { reducer as batmanShows } from './batman';
+import { combineReducers } from "redux";
 
-export default {
-    batmanShows,
-};
+import batmanData from "./batman";
+
+export default combineReducers({ batmanData });

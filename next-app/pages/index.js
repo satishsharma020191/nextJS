@@ -2,7 +2,7 @@ import Layout from '../components/Layout';
 import Link from 'next/link';
 import fetch from 'isomorphic-unfetch';
 import { connect } from 'react-redux';
-import { fetchBatmanStart } from '../lib/reducers/batman';
+import { fetchBatmanStart } from '../lib/actions';
 
 const Index = props => {
   const { store } = props;
@@ -35,7 +35,7 @@ const Index = props => {
   return (<Layout>
     <h1>Tv shows</h1>
     <ul>
-      {props.batmanSeries && props.batmanSeries.batman.map((sw, i) => {
+      {props.showList && props.showList.batmanSeries && props.showList.batmanSeries.map((sw, i) => {
         return <PostLink key={i} sw={sw.show} />
       })}
 
@@ -66,7 +66,7 @@ Index.getInitialProps = async function ({ isServer, store }) {
 
 
 const mapStateToProps = state => ({
-  batmanSeries: state.batmanShows.data,
+  showList: state.batmanData,
 });
 
 const mapDispatchToProps = dispatch => ({

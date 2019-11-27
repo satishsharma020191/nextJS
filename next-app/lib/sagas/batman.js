@@ -5,7 +5,9 @@ import {
     fetchBatmanSuccess,
     fetchBatmanSeriesDescStart,
     fetchBatmanSeriesDescSuccess,
-} from '../reducers/batman';
+} from '../actions';
+
+import { FETCH_BATMAN_START, FETCH_BATMAN_SERIES_DESC_START } from '../constants';
 
 
 export function* fetchbatmanSeriesList() {
@@ -19,16 +21,14 @@ export function* fetchbatmanSeriesList() {
     }
 }
 
-export function* fetchbatmanShowDesc(payload) {
-    console.log('description saga called::', payload);
-
-
-    // const { id } = query;
+export function* fetchbatmanShowDesc(action) {
     try {
-        // let { batid } = payload;
-        const res = yield fetch(`https://api.tvmaze.com/shows/757`);
+
+        let batid = action.payload;
+        console.log('show description final check id::', batid);
+        const res = yield fetch(`https://api.tvmaze.com/shows/${batid}`);
         const show = yield res.json();
-        console.log('show description::', show);
+        console.log('show description final check::', show);
         yield put(fetchBatmanSeriesDescSuccess(show));
     } catch (error) {
         console.log('description error', error);
@@ -43,8 +43,8 @@ export function* fetchbatmanShowDesc(payload) {
 // }
 
 export function* watchFetchBatman() {
-    yield takeEvery(fetchBatmanStart, fetchbatmanSeriesList);
-    yield takeEvery(fetchBatmanSeriesDescStart, fetchbatmanShowDesc);
+    yield takeEvery(FETCH_BATMAN_START, fetchbatmanSeriesList);
+    yield takeEvery(FETCH_BATMAN_SERIES_DESC_START, fetchbatmanShowDesc);
     // yield takeEvery(REQUEST_CATEGORIES_DATA, getCategoriesData);
     // yield takeEvery(REQUEST_PRODUCTS_DATA, getProductsData);
 }
