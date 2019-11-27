@@ -2,11 +2,11 @@ import Layout from '../components/Layout';
 import Link from 'next/link';
 import fetch from 'isomorphic-unfetch';
 import { connect } from 'react-redux';
-import { fetchBatmanStart } from '../lib/reducers/apod';
+import { fetchBatmanStart } from '../lib/reducers/batman';
 
 const Index = props => {
   const { store } = props;
-  console.log('print props::', props.apod.data);
+  console.log('print props::', props);
   const PostLink = ({ sw }) => (
     <li key={sw.id}>
       <Link href="/p/[id]" as={`/p/${sw.id}`}>
@@ -35,8 +35,8 @@ const Index = props => {
   return (<Layout>
     <h1>Tv shows</h1>
     <ul>
-      {props.apod.data && props.apod.data.apod.map((sw) => {
-        return <PostLink sw={sw.show} />
+      {props.batmanSeries && props.batmanSeries.batman.map((sw, i) => {
+        return <PostLink key={i} sw={sw.show} />
       })}
 
     </ul>
@@ -60,17 +60,16 @@ Index.getInitialProps = async function ({ isServer, store }) {
   await store.execSagaTasks(isServer, dispatch => {
     dispatch(fetchBatmanStart());
   });
-
-  console.log('printing server state::', store.getState());
+  // console.log('printing server state::', store.getState());
   return {};
 }
 
 
 const mapStateToProps = state => ({
-  apod: state.apod,
+  batmanSeries: state.batmanShows.data,
 });
 
 const mapDispatchToProps = dispatch => ({
-  fetchApod: date => dispatch(fetchBatmanStart(date)),
+  // fetchApod: date => dispatch(fetchBatmanStart(date)),
 });
 export default connect(mapStateToProps, mapDispatchToProps)(Index);

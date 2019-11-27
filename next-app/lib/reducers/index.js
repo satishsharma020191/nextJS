@@ -1,5 +1,5 @@
-import { reducer as apod } from './apod';
+import { reducer as batmanShows } from './batman';
 
 export default {
-    apod,
+    batmanShows,
 };
