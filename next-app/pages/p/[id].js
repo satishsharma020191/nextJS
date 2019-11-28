@@ -1,18 +1,9 @@
 import Layout from '../../components/Layout';
-import { useEffect } from 'react';
-//import Markdown from 'react-markdown';
 import { connect } from 'react-redux';
-import { useRouter } from 'next/router';
-import { bindActionCreators } from "redux";
 import { fetchBatmanSeriesDescStart } from '../../lib/actions';
 
 const Post = props => {
-    // const router = useRouter();
 
-    // useEffect(() => {
-    //     console.log('id::', router.query.id);
-    //     props.fetchBatmanSeriesDescStart(router.query.id);
-    // }, []);
     console.log('post props', props);
     return (<Layout>
         <h1>{props.show && props.show.name}</h1>
@@ -39,23 +30,6 @@ Post.getInitialProps = async function ({ isServer, store, query }) {
     return { isServer };
 }
 
-//     // const { id } = query;
-//     // const res = await fetch(`https://api.tvmaze.com/shows/${id}`);
-//     // const show = await res.json();
-
-//     // console.log('printing context id', show.name);
-//     // return {};
-// }
-
-// Post.getInitialProps = async function ({ isServer, store, query }) {
-//     await store.execSagaTasks(isServer, dispatch => {
-//         dispatch(fetchBatmanSeriesDescStart());
-//     });
-//     // console.log('printing server state::', store.getState());
-//     return {};
-// }
-
-
 const mapStateToProps = state => ({
     show: state.batmanData.showData,
 });
@@ -63,8 +37,4 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
 });
 
-//const mapDispatchToProps = dispatch => bindActionCreators({ fetchBatmanSeriesDescStart }, dispatch);
-
 export default connect(mapStateToProps, mapDispatchToProps)(Post);
-
-// export default Post;

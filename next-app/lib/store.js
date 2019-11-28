@@ -28,13 +28,13 @@ const makeStore = (initialState) => {
         store.saga = sagaMiddleware.run(rootSaga);
     };
 
-    store.stopSaga = async () => {
-        // Avoid running twice
-        if (!store.saga) return;
-        store.dispatch(END);
-        await store.saga.done;
-        store.saga = null;
-    };
+    // store.stopSaga = async () => {
+    //     // Avoid running twice
+    //     if (!store.saga) return;
+    //     store.dispatch(END);
+    //     await store.saga.done;
+    //     store.saga = null;
+    // };
 
     store.execSagaTasks = async (isServer, tasks) => {
         // run saga
