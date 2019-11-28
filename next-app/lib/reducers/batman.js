@@ -16,6 +16,7 @@ export default (state = {}, action) => {
 
     case FETCH_BATMAN_SERIES_DESC_SUCCESS:
       console.log('reducer single series desc::', action.payload);
+      console.log('print return state', { ...state, showData: action.payload });
       return { ...state, showData: action.payload }
 
     default:

@@ -42,11 +42,11 @@ const makeStore = (initialState) => {
         // dispatch saga tasks
         tasks(store.dispatch);
         // Stop running and wait for the tasks to be done
-        await store.stopSaga();
-        // Re-run on client side
-        if (!isServer) {
-            store.runSaga();
-        }
+        // await store.stopSaga();
+        // // Re-run on client side
+        // if (!isServer) {
+        //     store.runSaga();
+        // }
     };
 
     // Initial run
