@@ -25,7 +25,7 @@ export function* fetchbatmanShowDesc(action) {
     try {
 
         let batid = action.payload;
-        console.log('show description final check id::', batid);
+        console.log('show description saga called final check id::', batid);
         const res = yield fetch(`https://api.tvmaze.com/shows/${batid}`);
         const show = yield res.json();
         console.log('show description final check::', show);

@@ -12,6 +12,7 @@ export const fetchBatmanSuccess = (data) => {
 };
 
 export const fetchBatmanSeriesDescStart = data => {
+    console.log('action printing data::', data);
     return ({ type: FETCH_BATMAN_SERIES_DESC_START, payload: data })
 };
 export const fetchBatmanSeriesDescSuccess = data => {

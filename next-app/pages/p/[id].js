@@ -1,51 +1,62 @@
 import Layout from '../../components/Layout';
+import { useEffect } from 'react';
 //import Markdown from 'react-markdown';
 import { connect } from 'react-redux';
-import fetch from 'isomorphic-unfetch';
+import { useRouter } from 'next/router';
+import { bindActionCreators } from "redux";
 import { fetchBatmanSeriesDescStart } from '../../lib/actions';
 
 const Post = props => {
-    // console.log('post props', props);
+    // const router = useRouter();
+
+    // useEffect(() => {
+    //     console.log('id::', router.query.id);
+    //     props.fetchBatmanSeriesDescStart(router.query.id);
+    // }, []);
+    console.log('post props', props);
     return (<Layout>
-        {/* <h1>{props.show.name}</h1>
-        <p>{props.show.summary.replace(/<[/]?[pb]>/g, '')}</p>
-        <img src={props.show.image.medium} /> */}
+        <h1>{props.show && props.show.name}</h1>
+        <p>{props.show && props.show.summary.replace(/<[/]?[pb]>/g, '')}</p>
+        <img src={props.show && props.show.image.medium} />
     </Layout>);
 }
 
-// Post.getInitialProps = async function (context) {
-//     const { id } = context.query;
-//     const res = await fetch(`https://api.tvmaze.com/shows/${id}`);
-//     const show = await res.json();
+Post.getInitialProps = async function (context) {
+    const { id } = context.query;
+    const res = await fetch(`https://api.tvmaze.com/shows/${id}`);
+    const show = await res.json();
 
-//     console.log('printing context id', show.name);
-//     return { show };
-// }
-
-Post.getInitialProps = async function ({ isServer, store, query }) {
-    await store.execSagaTasks(isServer, dispatch => {
-        console.log('printing query id', query.id);
-        dispatch(fetchBatmanSeriesDescStart(query.id));
-    });
-    // // console.log('printing server state::', store.getState());
-    // return {};
-
-    // const { id } = query;
-    // const res = await fetch(`https://api.tvmaze.com/shows/${id}`);
-    // const show = await res.json();
-
-    // console.log('printing context id', show.name);
-    return {};
+    console.log('printing context id', show);
+    return { show };
 }
+
+// Post.getInitialProps = async function ({ isServer, store, query }) {
+//     await store.execSagaTasks(isServer, dispatch => {
+//         console.log('printing query id', query.id);
+//         dispatch(fetchBatmanSeriesDescStart(query.id));
+//     });
+//     console.log('printing server state::', store.getState(), query.id);
+// return {};
+
+// const { id } = query;
+// const res = await fetch(`https://api.tvmaze.com/shows/${id}`);
+// const show = await res.json();
+
+// console.log('printing context id', show.name);
+// return {};
+// }
 
 
 const mapStateToProps = state => ({
-    batmanSeries: state.batmanData,
+    show: state.batmanData.showData,
 });
 
-const mapDispatchToProps = dispatch => ({
-    // fetchApod: date => dispatch(fetchBatmanStart(date)),
-});
-export default connect(mapStateToProps, mapDispatchToProps)(Post);
+// const mapDispatchToProps = dispatch => ({
+//     abc: data => dispatch(fetchBatmanSeriesDescStart(data)),
+// });
 
-// export default Post;
+const mapDispatchToProps = dispatch => bindActionCreators({ fetchBatmanSeriesDescStart }, dispatch);
+
+//export default connect(mapStateToProps, mapDispatchToProps)(Post);
+
+export default Post;
